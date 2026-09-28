@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hosting-app-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hosting-app-service
+  template:
+    metadata:
+      labels:
+        app: hosting-app-service
+    spec:
+      containers:
+        - name: hosting-app-service
+          image: ghcr.io/toandos/hosting-app-service:{{ .Chart.AppVersion }}
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
